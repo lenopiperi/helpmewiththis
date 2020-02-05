@@ -3,34 +3,42 @@ import logo from './mr-meeseeks-logo.jpg';
 import '../App.css';
 
 class Header extends React.Component {
-
  
-  setRenderCondition() {
+  // setRenderCondition() {
 
-  	if (this.props.authenticated) {
-  		return true
-  	}
-  	else {return false}
-  }
+  // 	if (this.props.authenticated) {
+  // 		return true
+  // 	}
+  // 	else {return false}
+  // }
 
   render() {
-  	const {
-	    user,
-	    signOut,
-	    signInWithGoogle,
-	  } = this.props;
+  	
+  	// const {
+	  //   user,
+	  //   signOut,
+	  //   signInWithGoogle,
+	  // } = this.props.value;
 
+	  console.log('Header.jsx log',this.props)
 
     return (
-
     	<div className = "App-header">
     		<img src={logo} className="App-logo" alt="logo" />
 				<h1>Help Me With This</h1>
+				<div>
+					{
+				    this.props.user
+            ? <p>Hello, {this.props.user.displayName}</p>
+            : <p>Please sign in.</p>
+					}
+					{
+        		this.props.user
+	          ? <button onClick={this.props.signOut}>Sign out</button>
+	          : <button onClick={this.props.signIn}>Sign in with Google</button>
+      		}
+				</div>
     	</div>
-
-
-
-
     )
   }
 }

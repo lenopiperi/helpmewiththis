@@ -1,8 +1,13 @@
 import React from 'react';
 import '../App.css';
-import useTable from 'react-table'
+import ReactTable from 'react-table-6'
 import api from '../api'
+import styled from 'styled-components'
+import 'react-table-6/react-table.css'
 
+const Wrapper = styled.div`
+    padding: 0 40px 40px 40px;
+`
 
 class TaskFeed extends React.Component {
 
@@ -13,6 +18,9 @@ class TaskFeed extends React.Component {
           isLoading: false,
       }
   }
+
+
+
 
 //TODO: get this to work
   componentDidMount = async () => {
@@ -31,10 +39,52 @@ class TaskFeed extends React.Component {
     const { tasks, isLoading } = this.state
     console.log('TCL: TaskList -> render -> tasks', tasks)
 
-	  return (
-	  		<div>{tasks.toString()}</div>
+    const columns = [
+        {
+            Header: 'ID',
+            accessor: '_id',
+            filterable: false,
+        },
+        {
+            Header: 'Title',
+            accessor: 'title',
+            filterable: false,
+        },
+        {
+            Header: 'Body',
+            accessor: 'body',
+            filterable: false,
+        },
+    ]
 
-	  );		
+    let showTable = true
+    if (!tasks.length) {
+        showTable = false
+    }
+
+    if (this.props.user) {
+		  return (
+	            <Wrapper>
+	                {showTable && (
+	                    <ReactTable
+	                        data={tasks}
+	                        columns={columns}
+	                        loading={isLoading}
+	                        defaultPageSize={10}
+	                        showPageSizeOptions={true}
+	                        minRows={0}
+	                    />
+	                )}
+	            </Wrapper>
+
+		  );
+
+	  }	
+	  else {
+	  	return (
+	  		<div>You must log in first</div>
+	  		)
+	  }	
 	}
 
  
