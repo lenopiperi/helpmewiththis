@@ -1,12 +1,13 @@
 import React from 'react';
 import '../App.css';
-import ReactTable from 'react-table-6'
 import api from '../api'
 import styled from 'styled-components'
-import 'react-table-6/react-table.css'
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 const Wrapper = styled.div`
-    padding: 0 40px 40px 40px;
+    padding: 40px 40px 40px 40px;
 `
 
 class TaskFeed extends React.Component {
@@ -21,8 +22,6 @@ class TaskFeed extends React.Component {
 
 
 
-
-//TODO: get this to work
   componentDidMount = async () => {
     this.setState({ isLoading: true })
 
@@ -38,13 +37,17 @@ class TaskFeed extends React.Component {
 
     const { tasks, isLoading } = this.state
     console.log('TCL: TaskList -> render -> tasks', tasks)
+    console.log('LIst group example', this.state.listitems)
+
 
     const columns = [
+
         {
-            Header: 'ID',
-            accessor: '_id',
+            Header: 'User',
+            accessor: 'displayName',
             filterable: false,
         },
+
         {
             Header: 'Title',
             accessor: 'title',
@@ -64,18 +67,24 @@ class TaskFeed extends React.Component {
 
     if (this.props.user) {
 		  return (
+		  	<div>
 	            <Wrapper>
 	                {showTable && (
-	                    <ReactTable
-	                        data={tasks}
-	                        columns={columns}
-	                        loading={isLoading}
-	                        defaultPageSize={10}
-	                        showPageSizeOptions={true}
-	                        minRows={0}
-	                    />
+											<Card style={{ width: '18rem' }}>
+											  <Card.Header>Task Feed</Card.Header>
+											  <ListGroup variant="flush">
+								          {this.state.tasks.map(listitem => (
+								            <li key={listitem._id} className="list-group-item" >
+								              {listitem.body}
+								            </li>
+								          ))}
+											  </ListGroup>
+											</Card>
 	                )}
 	            </Wrapper>
+
+
+						</div>
 
 		  );
 

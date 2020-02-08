@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './mr-meeseeks-logo.jpg';
 import '../App.css';
+import Button from 'react-bootstrap/Button';
 
 class Header extends React.Component {
  
@@ -34,8 +35,8 @@ class Header extends React.Component {
 					}
 					{
         		this.props.user
-	          ? <button onClick={this.props.signOut}>Sign out</button>
-	          : <button onClick={this.props.signIn}>Sign in with Google</button>
+	          ? <Button variant="outline-light" onClick={this.props.signOut}>Sign out</Button>
+	          : <Button variant="outline-light" onClick={this.props.signIn}>Sign in with Google</Button>
       		}
 				</div>
     	</div>
